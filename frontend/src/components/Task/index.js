@@ -20,6 +20,7 @@ const Task = (props) => {
   }
 
   async function checkTask(event) {
+    if (checked) return;
     try {
       await api.put(
         `tasks/${taskId}`,

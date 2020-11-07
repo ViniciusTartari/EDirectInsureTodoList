@@ -7,7 +7,7 @@ function ensureAuthenticated(request, response, next) {
   //const authHeader = request.body.authorization;
 
   if (!authHeader) {
-    return response.status(401).send('JWT is missing');
+    return response.status(401).json({ message: 'JWT is missing' });
   }
 
   const [, token] = authHeader.split(' ');
@@ -21,7 +21,7 @@ function ensureAuthenticated(request, response, next) {
     });
     return next();
   } catch {
-    return response.status(401).send('Invalid JWT');
+    return response.status(401).json({ message: 'Invalid JWT' });
   }
 }
 

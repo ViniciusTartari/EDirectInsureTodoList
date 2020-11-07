@@ -15,7 +15,9 @@ module.exports = {
     });
 
     if (checkUserExist) {
-      return response.status(401).send('Email address already used');
+      return response
+        .status(401)
+        .json({ message: 'Email address already used' });
     }
 
     const hashedPassword = await bcryptjs.hash(password, 8);
@@ -44,13 +46,17 @@ module.exports = {
     });
 
     if (!user) {
-      return response.status(401).send('Incorrect email/password combination.');
+      return response
+        .status(401)
+        .json({ message: 'Incorrect email/password combination.' });
     }
 
     const passwordMatched = await bcryptjs.compare(password, user.password);
 
     if (!passwordMatched) {
-      return response.status(401).send('Incorrect email/password combination.');
+      return response
+        .status(401)
+        .json({ message: 'Incorrect email/password combination.' });
     }
 
     const { secret, expiresIn } = authConfig.jwt;
